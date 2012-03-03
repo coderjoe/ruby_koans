@@ -14,13 +14,14 @@
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
-  if a == b && a == c
-	  :equilateral
-  elsif a == b || b == c || c == a
-	  :isosceles
-  else
-	  :scalene
-  end
+	a,b,c = [a,b,c].sort
+
+	# Valid triangles have no negative values andsmaller sides with a sum greater than the largest!
+	raise TriangleError if a <= 0 || a + b <= c
+
+	# Based on the number of unique sides of a triangle, return the correct descriptive symbol.
+	unique_sides = [a,b,c].uniq.length
+	[:equilateral, :isosceles, :scalene][unique_sides-1]
 end
 
 # Error class used in part 2.  No need to change this code.
